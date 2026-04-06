@@ -210,7 +210,34 @@
     box-shadow: 0 0 60px rgba(29,158,117,0.15);
   }
 
-  .lightbox-close {
+  .lightbox-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    color: var(--tl);
+    cursor: pointer;
+    line-height: 1;
+    filter: drop-shadow(0 0 6px rgba(93,202,165,0.5));
+    user-select: none;
+    padding: 0 20px;
+    z-index: 1001;
+    transition: color 0.2s;
+  }
+
+  .lightbox-nav:hover { color: #fff; }
+  .lightbox-prev { left: 0; }
+  .lightbox-next { right: 0; }
+
+  .lightbox-counter {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: var(--mu);
+    letter-spacing: 2px;
+  }
     position: fixed;
     top: 20px;
     right: 24px;
@@ -294,9 +321,12 @@
   </div>
 </div>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+<div class="lightbox" id="lightbox">
   <span class="lightbox-close" onclick="closeLightbox()">✕</span>
-  <img id="lightbox-img" src="" alt="">
+  <span class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">&#8249;</span>
+  <img id="lightbox-img" src="" alt="" onclick="navigateLightbox(1)">
+  <span class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">&#8250;</span>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
 </div>
 
 <div class="footer">
@@ -304,17 +334,40 @@
 </div>
 
 <script>
+var images = [
+  'dta-file-hub-01_01.jpg',
+  'dta-file-hub-02_01.jpg',
+  'dta-file-hub-03_01.jpg',
+  'dta-file-hub-04_01.jpg'
+];
+var currentIndex = 0;
+
 function openLightbox(src) {
-  document.getElementById('lightbox-img').src = src;
+  currentIndex = images.indexOf(src);
+  updateLightbox();
   document.getElementById('lightbox').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
+
+function updateLightbox() {
+  document.getElementById('lightbox-img').src = images[currentIndex];
+  document.getElementById('lightbox-counter').textContent = (currentIndex + 1) + ' / ' + images.length;
+}
+
+function navigateLightbox(dir) {
+  currentIndex = (currentIndex + dir + images.length) % images.length;
+  updateLightbox();
+}
+
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
   document.body.style.overflow = '';
 }
+
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') navigateLightbox(1);
+  if (e.key === 'ArrowLeft') navigateLightbox(-1);
 });
 </script>
 
