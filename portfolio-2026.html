@@ -126,8 +126,7 @@ function renderAnnotations(page,vp){
   page.getAnnotations().then(function(annotations){
     annotations.forEach(function(ann){
       if(ann.subtype!=='Link')return;
-      var rect=pdfjsLib.Util.normalizeRect(ann.rect);
-      var r=pdfjsLib.Util.applyTransform(rect,vp.transform);
+      var r=vp.convertToViewportRectangle(ann.rect);
       var x1=Math.min(r[0],r[2]);
       var y1=Math.min(r[1],r[3]);
       var x2=Math.max(r[0],r[2]);
