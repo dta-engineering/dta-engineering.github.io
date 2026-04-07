@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTAutomation — Project Portfolio 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<meta property="og:title" content="DTAutomation — Project Portfolio 2026">
+<meta property="og:description" content="DTAutomation Project Portfolio — Dimitrios Tsiolchas · Senior Industrial Control & Automation Engineer · 45 Projects">
+<meta property="og:image" content="https://dta-engineering.github.io/DTAutomation-thumbnail.png">
+<meta property="og:url" content="https://dta-engineering.github.io/portfolio-2026.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DTAutomation — Project Portfolio 2026">
+<meta name="twitter:description" content="DTAutomation Project Portfolio — Dimitrios Tsiolchas · Senior Industrial Control & Automation Engineer · 45 Projects">
+<meta name="twitter:image" content="https://dta-engineering.github.io/DTAutomation-thumbnail.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --t:#1D9E75;--tl:#5DCAA5;--th:#9FE1CB;
+  --bg:#060f13;--panel:rgba(8,22,28,0.90);
+  --b:rgba(29,158,117,0.18);--tx:rgba(220,240,235,0.90);--mu:rgba(160,200,185,0.50);
+}
+html,body{min-height:100vh;background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;font-size:14px;display:flex;flex-direction:column;}
+.header{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid var(--b);background:rgba(6,15,19,0.97);position:sticky;top:0;z-index:100;flex-shrink:0;}
+.header-brand{display:flex;flex-direction:column;gap:1px;text-decoration:none;}
+.header-logo{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:600;color:var(--tl);letter-spacing:1px;filter:drop-shadow(0 0 8px rgba(93,202,165,0.4));}
+.header-sub{font-size:10px;color:var(--mu);letter-spacing:2px;text-transform:uppercase;}
+.header-actions{display:flex;align-items:center;gap:12px;}
+.btn{font-size:11px;color:var(--t);text-decoration:none;letter-spacing:1px;border:1px solid var(--b);padding:6px 14px;border-radius:4px;transition:border-color 0.2s,color 0.2s,background 0.2s;cursor:pointer;background:transparent;font-family:'Inter',sans-serif;white-space:nowrap;}
+.btn:hover{border-color:var(--tl);color:var(--tl);}
+.btn-primary{background:var(--t);color:#fff;border-color:var(--t);}
+.btn-primary:hover{background:var(--tl);border-color:var(--tl);color:#fff;}
+.viewer{flex:1;display:flex;flex-direction:column;align-items:center;padding:24px 16px 40px;gap:16px;}
+.controls{display:flex;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--b);border-radius:8px;padding:10px 20px;position:sticky;top:70px;z-index:50;}
+.nav-btn{width:32px;height:32px;border:1px solid var(--b);border-radius:4px;background:transparent;color:var(--tl);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s,color 0.2s;line-height:1;}
+.nav-btn:hover:not(:disabled){border-color:var(--tl);color:#fff;}
+.nav-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.page-counter{font-size:12px;color:var(--mu);letter-spacing:1px;min-width:60px;text-align:center;}
+.canvas-wrap{width:100%;max-width:900px;border:1px solid var(--b);border-radius:8px;overflow:hidden;box-shadow:0 0 40px rgba(29,158,117,0.06);background:#fff;position:relative;}
+#pdf-canvas{display:block;width:100%;height:auto;}
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:80px 40px;color:var(--mu);}
+.spin{width:30px;height:30px;border:3px solid var(--b);border-top-color:var(--t);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-txt{font-size:11px;letter-spacing:2px;text-transform:uppercase;}
+.footer{text-align:center;padding:20px;border-top:1px solid var(--b);font-size:11px;color:var(--mu);letter-spacing:1px;flex-shrink:0;}
+.footer a{color:var(--t);text-decoration:none;}
+@media(max-width:600px){.header{padding:12px 16px;}.controls{gap:10px;padding:8px 14px;top:62px;}.viewer{padding:16px 8px 32px;gap:12px;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="header-brand" href="https://dt-automation.net">
+    <div class="header-logo">DTAutomation</div>
+    <div class="header-sub">Project Portfolio 2026</div>
+  </a>
+  <div class="header-actions">
+    <a class="btn btn-primary" href="Dimitrios_Tsiolchas_Project_Portfolio_2026_04.pdf" download>&#8595; Download PDF</a>
+    <a class="btn" href="https://dt-automation.net">dt-automation.net &#8594;</a>
+  </div>
+</div>
+
+<div class="viewer">
+  <div class="controls">
+    <button class="nav-btn" id="prev-btn" disabled>&#8249;</button>
+    <div class="page-counter" id="page-counter">— / —</div>
+    <button class="nav-btn" id="next-btn" disabled>&#8250;</button>
+  </div>
+  <div class="canvas-wrap" id="canvas-wrap">
+    <div class="loading" id="loading">
+      <div class="spin"></div>
+      <div class="load-txt">Loading Portfolio</div>
+    </div>
+    <canvas id="pdf-canvas" style="display:none;"></canvas>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="https://dt-automation.net">DTAutomation</a> · Dimitrios Tsiolchas · Thessaloniki, Greece
+</div>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+var pdfDoc=null,currentPage=1,rendering=false;
+var canvas=document.getElementById('pdf-canvas');
+var ctx=canvas.getContext('2d');
+var loading=document.getElementById('loading');
+var counter=document.getElementById('page-counter');
+var prevBtn=document.getElementById('prev-btn');
+var nextBtn=document.getElementById('next-btn');
+
+function renderPage(num){
+  if(rendering)return;
+  rendering=true;
+  pdfDoc.getPage(num).then(function(page){
+    var wrap=document.getElementById('canvas-wrap');
+    var scale=wrap.clientWidth/page.getViewport({scale:1}).width;
+    var vp=page.getViewport({scale:scale});
+    canvas.width=vp.width;canvas.height=vp.height;
+    page.render({canvasContext:ctx,viewport:vp}).promise.then(function(){
+      rendering=false;
+      loading.style.display='none';
+      canvas.style.display='block';
+      counter.textContent=num+' / '+pdfDoc.numPages;
+      prevBtn.disabled=num<=1;
+      nextBtn.disabled=num>=pdfDoc.numPages;
+    });
+  });
+}
+
+function prevPage(){if(currentPage<=1)return;currentPage--;renderPage(currentPage);window.scrollTo({top:0,behavior:'smooth'});}
+function nextPage(){if(currentPage>=pdfDoc.numPages)return;currentPage++;renderPage(currentPage);window.scrollTo({top:0,behavior:'smooth'});}
+
+prevBtn.addEventListener('click',prevPage);
+nextBtn.addEventListener('click',nextPage);
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')nextPage();
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')prevPage();
+});
+
+pdfjsLib.getDocument('Dimitrios_Tsiolchas_Project_Portfolio_2026_04.pdf').promise.then(function(pdf){
+  pdfDoc=pdf;
+  renderPage(currentPage);
+}).catch(function(){
+  loading.innerHTML='<div style="color:rgba(93,202,165,0.6);font-size:13px;">PDF not found — please check back shortly.</div>';
+});
+</script>
+</body>
+</html>
