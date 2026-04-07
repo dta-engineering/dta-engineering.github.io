@@ -121,42 +121,52 @@ function renderPage(num){
 
 function renderAnnotations(page,vp){
   annotLayer.innerHTML='';
-  annotLayer.style.width=canvas.width+'px';
-  annotLayer.style.height=canvas.height+'px';
+  annotLayer.style.position='absolute';
+  annotLayer.style.top='0';
+  annotLayer.style.left='0';
+  annotLayer.style.width=canvas.offsetWidth+'px';
+  annotLayer.style.height=canvas.offsetHeight+'px';
   page.getAnnotations().then(function(annotations){
+    var cw=canvas.offsetWidth;
+    var ch=canvas.offsetHeight;
+    var pw=page.getViewport({scale:1}).width;
+    var ph=page.getViewport({scale:1}).height;
+    var sx=cw/pw;
+    var sy=ch/ph;
     annotations.forEach(function(ann){
       if(ann.subtype!=='Link')return;
-      var r=vp.convertToViewportRectangle(ann.rect);
-      var x1=Math.min(r[0],r[2]);
-      var y1=Math.min(r[1],r[3]);
-      var x2=Math.max(r[0],r[2]);
-      var y2=Math.max(r[1],r[3]);
+      var r=ann.rect;
+      /* PDF coords: origin bottom-left. Canvas: origin top-left */
+      var x1=r[0]*sx;
+      var y1=ch-(r[3]*sy);
+      var w=(r[2]-r[0])*sx;
+      var h=(r[3]-r[1])*sy;
       var a=document.createElement('a');
-      a.style.cssText='position:absolute;left:'+x1+'px;top:'+y1+'px;width:'+(x2-x1)+'px;height:'+(y2-y1)+'px;cursor:pointer;';
+      a.style.cssText='position:absolute;left:'+x1+'px;top:'+y1+'px;width:'+w+'px;height:'+h+'px;cursor:pointer;';
       if(ann.url){
         a.href=ann.url;
         a.target='_blank';
         a.rel='noopener noreferrer';
       } else if(ann.dest){
         a.href='#';
-        a.addEventListener('click',function(e){
-          e.preventDefault();
-          if(typeof ann.dest==='string'){
-            pdfDoc.getDestination(ann.dest).then(function(dest){
+        (function(dest){
+          a.addEventListener('click',function(e){
+            e.preventDefault();
+            if(typeof dest==='string'){
+              pdfDoc.getDestination(dest).then(function(d){
+                pdfDoc.getPageIndex(d[0]).then(function(idx){
+                  currentPage=idx+1;renderPage(currentPage);
+                  window.scrollTo({top:0,behavior:'smooth'});
+                });
+              });
+            } else if(Array.isArray(dest)){
               pdfDoc.getPageIndex(dest[0]).then(function(idx){
-                currentPage=idx+1;
-                renderPage(currentPage);
+                currentPage=idx+1;renderPage(currentPage);
                 window.scrollTo({top:0,behavior:'smooth'});
               });
-            });
-          } else if(Array.isArray(ann.dest)){
-            pdfDoc.getPageIndex(ann.dest[0]).then(function(idx){
-              currentPage=idx+1;
-              renderPage(currentPage);
-              window.scrollTo({top:0,behavior:'smooth'});
-            });
-          }
-        });
+            }
+          });
+        })(ann.dest);
       }
       annotLayer.appendChild(a);
     });
