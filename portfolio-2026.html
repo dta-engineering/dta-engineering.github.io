@@ -103,10 +103,13 @@ function renderPage(num){
   rendering=true;
   pdfDoc.getPage(num).then(function(page){
     var wrap=document.getElementById('canvas-wrap');
-    var scale=wrap.clientWidth/page.getViewport({scale:1}).width;
+    var dpr=window.devicePixelRatio||1;
+    var scale=(wrap.clientWidth/page.getViewport({scale:1}).width)*dpr;
     var vp=page.getViewport({scale:scale});
     canvas.width=vp.width;
     canvas.height=vp.height;
+    canvas.style.width=(vp.width/dpr)+'px';
+    canvas.style.height=(vp.height/dpr)+'px';
     page.render({canvasContext:ctx,viewport:vp}).promise.then(function(){
       rendering=false;
       loading.style.display='none';
@@ -114,12 +117,13 @@ function renderPage(num){
       counter.textContent=num+' / '+pdfDoc.numPages;
       prevBtn.disabled=num<=1;
       nextBtn.disabled=num>=pdfDoc.numPages;
-      renderAnnotations(page,vp);
+      renderAnnotations(page,vp,dpr);
     });
   });
 }
 
-function renderAnnotations(page,vp){
+function renderAnnotations(page,vp,dpr){
+  dpr=dpr||1;
   annotLayer.innerHTML='';
   annotLayer.style.position='absolute';
   annotLayer.style.top='0';
